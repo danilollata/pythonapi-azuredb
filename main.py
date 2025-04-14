@@ -4,6 +4,7 @@ import aiomysql
 import os
 from dotenv import load_dotenv
 from datetime import datetime
+from fastapi.middleware.cors import CORSMiddleware
 
 load_dotenv()
 
@@ -15,6 +16,16 @@ DB_PORT = int(os.getenv("DB_PORT"))
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
+
+
+# Permitir solicitudes desde Live Server
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],          # Permitir todos los orígenes
+    allow_credentials=False,      # Importante: debe ser False con "*" en allow_origins
+    allow_methods=["*"],          # Permitir todos los métodos
+    allow_headers=["*"],          # Permitir todos los headers
+)
 
 # MODELOS
 
